@@ -28,5 +28,6 @@ Webp support for oxid - image generation on the fly
 
 3. put getWebp.php into source dir. check encoder path at the begin of file:
    
+   ```php
    define("CWEBP", "/usr/bin/cwebp");
-   
+   ```
