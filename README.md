@@ -31,3 +31,6 @@ Webp support for oxid - image generation on the fly
    ```php
    define("CWEBP", "/usr/bin/cwebp");
    ```
+
+
+Feedback/pull requests welcome
