@@ -3,9 +3,7 @@ Webp support for oxid - image generation on the fly
 
 1. Install cwebp encoder from https://developers.google.com/speed/webp/docs/cwebp
 
-2. 
-
-add the following rules before org. getimg.php rule
+2. add the following rules before org. getimg.php rule
 
 
     RewriteCond %{HTTP_ACCEPT} image/webp 
