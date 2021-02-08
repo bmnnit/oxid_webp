@@ -5,7 +5,7 @@ Webp support for oxid - image generation on the fly
 
 2. add the following rules before org. getimg.php rule
 
-
+```bash
     RewriteCond %{HTTP_ACCEPT} image/webp 
     RewriteCond %{REQUEST_FILENAME} (.*)\.(jpe?g|png)$ 
     RewriteCond %1\.png -f [or]
@@ -24,6 +24,7 @@ Webp support for oxid - image generation on the fly
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule (\.jpe?g|\.gif|\.png|\.svg)$ getimg.php [NC]
+```
 
 3. put getWebp.php into source dir. check encoder path at the begin of file:
    
