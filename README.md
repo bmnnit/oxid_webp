@@ -31,6 +31,9 @@ Webp support for oxid - image generation on the fly
    ```php
    define("CWEBP", "/usr/bin/cwebp");
    ```
+4. inspect tail -f source/log/getWebp.log for errors, i had not right to generate pics on certain places
+
+
 
 
 Feedback/pull requests welcome
