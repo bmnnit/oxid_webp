@@ -24,6 +24,8 @@ if (!function_exists("getGeneratorInstanceName")) {
 
 class DynamicWebpImageGenerator extends OxidEsales\EshopCommunity\Core\DynamicImageGenerator {
 
+    var $bWebpHeader = false;
+    
     public function getGeneratorInstanceName() {
         return "DynamicWebpImageGenerator";
     }
@@ -36,7 +38,7 @@ class DynamicWebpImageGenerator extends OxidEsales\EshopCommunity\Core\DynamicIm
      */
     public function outputImage() {
         
-        $sReqImage =  strtok($_SERVER['REQUEST_URI'],  '?'); //strip get args 
+        $sReqImage =  urldecode ( strtok($_SERVER['REQUEST_URI'],  '?')); //strip get args 
         $aReqImgParts = pathinfo($sReqImage);
        
         $masterImagePath = $this->_getShopBasePath() . $sReqImage;
@@ -45,8 +47,14 @@ class DynamicWebpImageGenerator extends OxidEsales\EshopCommunity\Core\DynamicIm
         $genImagePath = $aPathParts['dirname'] . "/" . $aPathParts['filename'] . ".webp";
         $sRetImg = $this->_generateWebp($masterImagePath, $genImagePath);
         
-        // outputting headers  Produce proper Image
-        header("Content-type: image/webp");
+        
+        if ($this->bWebpHeader) {
+            // outputting headers  Produce proper Image
+            header("Content-type: image/webp");
+        } else {
+            $mime = mime_content_type($sRetImg);
+            header("Content-type: " . $mime);
+        }
 
         // sending headers
         if ($buffer) {
@@ -69,14 +77,17 @@ class DynamicWebpImageGenerator extends OxidEsales\EshopCommunity\Core\DynamicIm
      * @return string
      */
     protected function _generateWebp($source, $target) {
+         
+        $sourceEsc = escapeshellarg($source);
+        $targetEsc = escapeshellarg($target);
         
-        $cmd = CWEBP . " -mt " . $source . " -o " . $target ;
-        $cmd = escapeshellcmd ($cmd );
+        $cmd = CWEBP . " -mt " . $sourceEsc . " -o " . $targetEsc ;
 
         exec($cmd . " 2>&1", $aRet, $iStatus);
  
         if (0 === $iStatus) {
-            return $target; //all good
+            $this->bWebpHeader = true; //output web header later
+            return $target; //all good return org target
         } else {
             $this->_log($cmd, $aRet);
             return $source;
