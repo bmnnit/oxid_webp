@@ -17,8 +17,7 @@ convertWebp() {
 
 export -f convertWebp
 
-find . -name \*.jpg -type f -print0 | xargs -0 -n1 -P8  -I {} bash -c  'convertWebp "{}"'
-find . -name \*.png -type f -print0 | xargs -0 -n1 -P8  -I {} bash -c  'convertWebp "{}"'
+find . -type f \( -iname \*.jpg -o -iname \*.png -o -iname \*.jpeg \) -print0 | xargs -0 -n1 -P8  -I {} bash -c  'convertWebp "{}"'
 
 #single cpu.. tzzzz
 #find . -name \*.jpg -exec bash -c 'convertWebp "{}"'  \;
