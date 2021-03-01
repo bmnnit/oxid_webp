@@ -33,7 +33,7 @@ Webp support for oxid - image generation on the fly
    ```
 4. inspect tail -f source/log/getWebp.log for errors, i had not right to generate pics on certain places
 
-
+5. optional: use convert.sh to convert all images, or just wait for it to happen... 
 
 
 Feedback/pull requests welcome
